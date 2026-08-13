@@ -1,1 +1,17 @@
-@import "tailwindcss"
+@import './fonts.css';
+@import "tailwindcss";
+
+@theme {
+    --color-primary: oklch(0.56 0.176 258);
+    --color-pulse: oklch(0.61 0.203 22);
+    --color-success: oklch(0.6 0.13 163);
+    --color-warning: oklch(0.72 0.14 75);
+    --color-background: oklch(1 0 0);
+    --color-foreground: oklch(0.24 0.035 259);
+    --color-text-muted-foreground: oklch(0.55 0.032 256);
+    --color-accent: oklch(0.42 0.12 258);
+}
+
+@theme {
+    --font-vazir: "Vazirmatn", sans-serif;
+}
