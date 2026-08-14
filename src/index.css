@@ -25,3 +25,13 @@ body,
     min-height: 100vh;
     font-family: var(--font-vazir);
 }
+
+/* Input Customization */
+input {
+    outline: none;
+}
+
+input:focus {
+    border-radius: var(--color-text-muted-foreground);
+    border-radius: 1.15rem;
+}

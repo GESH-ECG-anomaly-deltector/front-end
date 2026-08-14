@@ -56,7 +56,8 @@ const SignUpForm = ({ role, setRole }) => {
                 </label>
                 <input 
                     id=""
-                    type="number"
+                    type="numeric"
+                    pattern='[0-9]*'
                     dir="ltr"
                     placeholder="0913456997"
                     className="border border-text-muted-foreground/25 h-[2.75rem] px-[0.8rem] rounded-[1.15rem] shadow-sm w-full" 
@@ -70,7 +71,7 @@ const SignUpForm = ({ role, setRole }) => {
                         </label>
                         <input 
                             id=""
-                            type="number"
+                            type="numeric"
                             dir="ltr"
                             placeholder="12345"
                             className="bg-white border border-text-muted-foreground/25 h-[2.75rem] px-[0.8rem] rounded-[1.15rem] shadow-sm w-full" 
