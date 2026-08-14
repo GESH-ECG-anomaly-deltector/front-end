@@ -7,7 +7,7 @@ const LoginForm = () => {
                 </label>
                 <input 
                     id=""
-                    type="text"
+                    type="number"
                     dir="ltr"
                     placeholder="0913456997"
                     className="border border-text-muted-foreground/25 h-[2.75rem] px-[0.8rem] rounded-[1.15rem] shadow-sm w-full" 

@@ -27,7 +27,7 @@ const LoginSignUp = () => {
                             </button>
                         </div>
 
-                        { mode == "signup" && < SignUpForm />}
+                        { mode == "signup" && < SignUpForm role={ role } setRole={ setRole } />}
                         { mode == "login" && < LoginForm />}
                         
                         
