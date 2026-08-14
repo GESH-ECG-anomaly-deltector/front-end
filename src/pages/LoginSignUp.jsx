@@ -9,7 +9,7 @@ const LoginSignUp = () => {
     const [mode, setMode] = useState("signup");
     const [role, setRole] = useState("patient");
     return ( 
-        <div className="flex h-full">
+        <div className="flex h-screen">
             <div className="bg-primary flex flex-col justify-between p-[2.5rem]">
                 <Link to='' className="gap-[0.5rem] items-center justify-start w-fit h-fit">
                     <div className="flex justify-center items-center h-[2.25rem] w-[2.25rem] flex-shrink-0">
