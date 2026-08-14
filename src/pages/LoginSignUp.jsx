@@ -11,13 +11,13 @@ const LoginSignUp = () => {
     return ( 
         <div className="flex h-screen">
             <div className="bg-primary flex flex-col justify-between p-[2.5rem]">
-                <Link to='' className="gap-[0.5rem] items-center justify-start w-fit h-fit">
+                <Link to='' className="flex gap-[0.5rem] items-center justify-start w-fit h-fit">
                     <div className="flex justify-center items-center h-[2.25rem] w-[2.25rem] flex-shrink-0">
                         <Logo width={36} height={36} className={""}/>
                     </div>
                     <div className="flex flex-col">
                         <span className="font-vazir font-extrabold text-[1.125rem] text-white">گِش</span>
-                        <span className="font-vazir font-regular text-[0.625rem] text-text-muted-foreground">تحلیل هوشمند نوار قلب</span>
+                        <span className="font-vazir font-regular text-[0.625rem] text-black">تحلیل هوشمند نوار قلب</span>
                     </div>
                 </Link>
                 <div className="">
