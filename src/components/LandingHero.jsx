@@ -44,7 +44,7 @@ const LandingHero = () => {
                     </ul>
                 </div>
             </div>
-            <div className="bg-white h-fit overflow-hidden rounded-[1.65rem] w-[32.75rem]">
+            <div className="bg-white h-fit overflow-hidden rounded-[1.65rem] w-[32.75rem] shadow-sm">
                 <div className="flex gap-[15.25rem] h-fit px-[1.25rem] py-[0.75rem]  w-full">
                     <span className="font-vazir font-semibold text-[0.875rem]">نمونه سیگنال - || lead </span>
                     <span className="flex gap-[0.4rem] font-normal items-center text-[0.75rem] text-text-muted-foreground">

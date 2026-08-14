@@ -1,6 +1,7 @@
 import NavBar from "../components/NavBar";
 import LandingHero from "../components/LandingHero";
 import Steps from "../components/Steps";
+import FinalCTA from "../components/FinalCTA";
 
 const Home = () => {
     return ( 
@@ -16,8 +17,14 @@ const Home = () => {
                 </div>
                 <LandingHero />
             </div>
-            <div className="px-[9rem]">
+            <div className="border-b-[0.01rem] border-text-muted-foreground/25 px-[9rem]">
                 <Steps />
+            </div>
+            <div className="border-b-[0.01rem] border-text-muted-foreground/25  px-[9.62rem]">
+                <FinalCTA />
+            </div>
+            <div className="px-[9rem]">
+                
             </div>
         </div>
      );
