@@ -5,7 +5,7 @@ import Logo from '../assets/icons/Logo'
 
 const NavBar = () => {
     return ( 
-        <div className = "bg-white flex gap-[22.5375rem] items-center px-[2rem] py-[1.25rem] whitespace-nowrap">
+        <div className = "bg-white flex justify-between items-center px-[2rem] py-[1.25rem] whitespace-nowrap">
             <Link to='' className="flex gap-[0.5rem] items-center w-fit h-fit">
                 <div className="flex justify-center items-center h-[2.25rem] w-[2.25rem] flex-shrink-0">
                     <Logo width={36} height={36} className={""}/>
