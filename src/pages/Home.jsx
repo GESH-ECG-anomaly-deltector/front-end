@@ -2,6 +2,7 @@ import NavBar from "../components/NavBar";
 import LandingHero from "../components/LandingHero";
 import Steps from "../components/Steps";
 import FinalCTA from "../components/FinalCTA";
+import Footer from "../components/Footer"
 
 const Home = () => {
     return ( 
@@ -24,7 +25,7 @@ const Home = () => {
                 <FinalCTA />
             </div>
             <div className="px-[9rem]">
-                
+                <Footer />
             </div>
         </div>
      );
