@@ -15,7 +15,7 @@ const FinalCTA = () => {
                             <path d="M12.6666 8H3.33331" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </Link>
-                    <Link t0='' className="bg-white border border-text-muted-foreground/25 flex font-vazir font-medium h-[2.5rem] items-center px-[1.7375rem] rounded-full text-[0.875rem] w-fit">
+                    <Link to='/login-signup' className="bg-white border border-text-muted-foreground/25 flex font-vazir font-medium h-[2.5rem] items-center px-[1.7375rem] rounded-full text-[0.875rem] w-fit">
                         ورود / ثبت‌نام
                     </Link>
                 </div>
@@ -43,7 +43,7 @@ const FinalCTA = () => {
                         <p className="font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground">به شبکه متخصصین گِش بپیوندید و پرونده‌های بیماران را بررسی کنید.</p>
                     </div>
                 </div>
-                <Link to="" className="border border-text-muted-foreground/25 font-normal text-[0.875rem] rounded-[1.15rem] text-center py-[0.5rem]">ثبت‌نام پزشک</Link>
+                <Link to="/login-signup" className="border border-text-muted-foreground/25 font-normal text-[0.875rem] rounded-[1.15rem] text-center py-[0.5rem]">ثبت‌نام پزشک</Link>
             </div>
         </section>
      );

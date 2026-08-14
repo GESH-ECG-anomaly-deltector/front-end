@@ -4,6 +4,8 @@ import Steps from "../components/Steps";
 import FinalCTA from "../components/FinalCTA";
 import Footer from "../components/Footer"
 
+import '../../src/index.css'
+
 const Home = () => {
     return ( 
         <div className="font-vazir">
