@@ -21,3 +21,8 @@ chore	کارهای جانبی (تنظیمات، وابستگی‌ها، بدون
 perf	بهبود کارایی/سرعت
 test	اضافه/تغییر تست‌ها
 scope اختیاریه — می‌تونی بخشی از پروژه رو مشخص کنی (مثلاً navbar, logo, auth).
+
+
+hug -> w-fit
+fill -> w-full / flex-1
+fixed -> fixed number

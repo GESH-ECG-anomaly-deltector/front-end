@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import UserIcon from "../assets/icons/UserIcon";
 
-const PatientSidebar = () => {
+const PatientSidebar = ({ activeTab, setActiveTab }) => {
 
     const DASHBOARD_TABS = {
         OVERVIEW: 'overview',
@@ -12,7 +12,6 @@ const PatientSidebar = () => {
         HISTORY: 'history',
         PROFILE: 'profile',
     }
-    const [activeTab, setActiveTab] = useState(DASHBOARD_TABS.OVERVIEW)
     const navItems = [
         { id: DASHBOARD_TABS.OVERVIEW, label: 'نمای کلی', icon: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.75 2.25H3C2.58579 2.25 2.25 2.58579 2.25 3V8.25C2.25 8.66421 2.58579 9 3 9H6.75C7.16421 9 7.5 8.66421 7.5 8.25V3C7.5 2.58579 7.16421 2.25 6.75 2.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -38,7 +37,7 @@ const PatientSidebar = () => {
     }
 
     return ( 
-        <aside className="border border-text-muted-foreground/24 flex flex-col h-[100vh] justify-between p-[0.9875rem] rounded-[1.65rem] w-[16rem]">
+        <aside className="bg-white border border-text-muted-foreground/24 flex flex-col h-[100vh] justify-between p-[0.9875rem] rounded-[1.65rem] w-[16rem]">
             <div>
                 <Link to='' className="flex gap-[0.5rem] items-center w-fit h-fit">
                     <div className="flex justify-center items-center h-[2.25rem] w-[2.25rem] flex-shrink-0">
