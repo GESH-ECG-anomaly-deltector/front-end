@@ -1,8 +1,8 @@
-import { Children, createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 const PatientContext = createContext(null);
 
-export const PatientProvider = ({ Children }) => {
+export const PatientProvider = ({ children }) => {
     //mocking the date here 
     const patient = {
         patientName: "زینب جنتی",
@@ -10,9 +10,9 @@ export const PatientProvider = ({ Children }) => {
     };
 
     return (
-        <PatientProvider.Provider value = { patient }>
+        <PatientContext.Provider value = { patient }>
             { children }
-        </PatientProvider.Provider>
+        </PatientContext.Provider>
     );
 };
  
