@@ -1,4 +1,8 @@
-const PatientHeader = ({ patientName, first2letters }) => {
+import { usePatient } from "../context/PatientContext";
+
+const PatientHeader = () => {
+    const { patientName, first2letters } = usePatient();
+    
     return ( 
         <header className="bg-white border border-text-muted-foreground/24 flex justify-between items-center px-[0.9875rem] py-[0.7375rem] rounded-[1.4rem] shadow-sm w-full">
             <div className="flex flex-col">

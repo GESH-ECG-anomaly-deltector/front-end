@@ -4,10 +4,6 @@ import PatientHeader from "./PatientHeader";
 import ecgSample from '../assets/images/ecg-sample2.png'
 
 const OVerview = () => {
-    const patientName = "زینب جنتی";
-    const first2letters = "زی";
-    
-    
     const lastestResult = {
         recId: '1042',
         lastRecDate: '۱۴۰۵/۰۵/۱۲ — ۰۹:۲۴',
@@ -134,7 +130,7 @@ const OVerview = () => {
 
     return ( 
         <div className="flex flex-col gap-[1rem]">
-            <PatientHeader patientName={ patientName } first2letters={ first2letters } />
+            <PatientHeader />
             <section className="flex justify-between">
                 <div className="whitespace-nowrap">
                     <h1 className="font-extrabold leading-[2rem] text-[1.5rem]">سلام، {patientName}</h1>
