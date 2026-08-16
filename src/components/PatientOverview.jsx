@@ -202,7 +202,7 @@ const OVerview = () => {
                         </li>
                     ))}
                     {/* THE LINK */}
-                    <Link to='' className="border border-text-muted-foreground/50 flex gap-[0.5rem] justify-center items-center px-[0.9875rem] py-[0.4375rem] rounded-full shadow-sm">
+                    <Link to={`/patient/records/${lastestResult.recId}`} className="border border-text-muted-foreground/50 flex gap-[0.5rem] justify-center items-center px-[0.9875rem] py-[0.4375rem] rounded-full shadow-sm">
                         <span className="font-medium leading-[1.25rem] text-[0.875rem]">مشاهده جزئیات کامل</span>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.99992 12.6666L3.33325 7.99998L7.99992 3.33331" stroke="#152030" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
