@@ -132,10 +132,10 @@ const OVerview = () => {
         <div className="flex flex-col gap-[1rem]">
             <PatientHeader />
             <section className="flex justify-between">
-                <div className="whitespace-nowrap">
+                <header className="whitespace-nowrap">
                     <h1 className="font-extrabold leading-[2rem] text-[1.5rem]">سلام، {patientName}</h1>
                     <p className="font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground">خلاصه‌ی وضعیت قبلی شما براساس آخرین تحلیل‌ها</p>
-                </div>
+                </header>
                 <div className="flex items-end">
                     <div className="bg-primary flex gap-[0.5rem] h-[2.25rem] items-center px-[1rem] py-[0.8rem] rounded-full w-fit">
                         <span className="font-medium leading-[1.25rem] text-white text-[0.875rem]">آپلود نوار قلب</span>
