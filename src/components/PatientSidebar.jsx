@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import Logo from "../assets/icons/Logo";
 import UserIcon from "../assets/icons/UserIcon";
 
-const PatientSidebar = ({ activeTab, setActiveTab }) => {
+const PatientSidebar = () => {
 
     const location = useLocation();
     const navItems = [

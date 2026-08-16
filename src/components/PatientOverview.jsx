@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 
 import PatientHeader from "./PatientHeader";
+import { usePatient } from "../context/PatientContext";
 import ecgSample from '../assets/images/ecg-sample2.png'
 
 const OVerview = () => {
+    const { patientName } = usePatient();
     const lastestResult = {
         recId: '1042',
         lastRecDate: '۱۴۰۵/۰۵/۱۲ — ۰۹:۲۴',
