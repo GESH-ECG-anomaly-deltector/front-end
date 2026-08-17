@@ -8,6 +8,7 @@ import PatientRecordDetails from './components/PatientRecordDetails.jsx'
 import PatientOverview from './components/PatientOverview.jsx'
 import PatientUploadPanel from './components/PatientUploadPanel.jsx'
 import PatientHistory from './components/PatientHistory.jsx'
+import PatientProfile from './components/PatientProfile.jsx'
 import './App.css'
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
         <Route path='records/:recordId' element={ <PatientRecordDetails /> }/>
         <Route path="ecg-upload" element={<PatientUploadPanel />} />
         <Route path="history" element={<PatientHistory />} />
-        {/* <Route path="profile" element={<PatientProfile />} /> */}
+        <Route path="profile" element={<PatientProfile />} />
       </Route>
     </Routes>
   )
