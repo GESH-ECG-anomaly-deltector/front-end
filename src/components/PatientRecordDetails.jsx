@@ -29,7 +29,7 @@ const PatientRecordDetails = () => {
             <header className='flex justify-between whitespace-nowrap'>
                 <div>
                     <h1 className='font-extrabold leading-[2rem] text-[1.5rem] tracking-[-0.0375rem]'>نتجه REC - { record.recId }</h1>
-                    <p className='font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground'>{ record.lastRecDate }. آپلود فایل { record.leadCount } لیدی</p>
+                    <p className='font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground'>{ record.date }. آپلود فایل { record.leadCount } لیدی</p>
                 </div>
                 <div className='flex font-medium gap-[0.5rem] leading-[1.125rem] text-[0.875rem]'>
                     <button className='bg-white flex gap-[0.5rem] items-center px-[1rem] py-[0.5rem] rounded-full shadow-sm'>

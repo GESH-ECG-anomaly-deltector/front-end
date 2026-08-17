@@ -10,9 +10,9 @@ const PatientDashboard = () => {
 
     return ( 
         <PatientProvider>
-            <div className="bg-primary/3 flex gap-[1.5rem] px-[2rem] py-[1.5rem] mx-[1.25rem]">
-                <PatientSidebar activeTab={ activeTab } setActiveTab={ setActiveTab }/>
-                <main>
+            <div className="bg-primary/3 px-[1.25rem]">
+                <main className="px-[2rem] py-[1.5rem] w-full flex gap-[1.5rem]">
+                    <PatientSidebar activeTab={ activeTab } setActiveTab={ setActiveTab }/>
                     <Outlet />
                 </main>
             </div>
