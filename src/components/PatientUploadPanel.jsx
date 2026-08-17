@@ -1,7 +1,22 @@
+import { useState } from "react";
+
 import PatientHeader from "./PatientHeader";
 import ECGUploadForm from "./ECGUploadForm";
+import ProcessingStatusPanel from "./ProcessingStatusPanel";
 
 const PatientUploadPanel = () => {
+    const [currentStep, setCurrentStep] = useState(0);
+    // 0 = هنوز شروع نشده
+    // 1 = بارگذاری
+    // 2 = ... پایین تعریف کردم:
+
+    const steps = [
+        {id: 1, label: 'بارگذاری فایل'},
+        {id: 2, label: 'پیش‌پردازش سیگنال'},
+        {id: 3, label: 'استنتاج مدل'},
+        {id: 4, label: 'آماده‌سازی گزارش'},
+    ];
+
     return ( 
         <div className="flex flex-col gap-[1.5rem]">
             <PatientHeader />
@@ -12,13 +27,11 @@ const PatientUploadPanel = () => {
             <div className="flex gap-[1rem]">
                 {/* Right Column */}
                 <div className="rounded-[1.4rem]">
-                    <ECGUploadForm />
+                    <ECGUploadForm currentStep = { currentStep } setCurrentStep = { setCurrentStep } />
                 </div>
 
                 {/* Left Column */}
-                <aside className="bg-white border border-text-muted-foreground/24 flex flex-1 flex-col gap-[1rem] p-[1.4875rem] rounded-[1.4rem]">
-
-                </aside>
+                <ProcessingStatusPanel currentStep = { currentStep } steps = { steps } />
             </div>
         </div>
      );

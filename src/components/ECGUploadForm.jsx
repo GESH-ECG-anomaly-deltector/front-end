@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-const ECGUploadForm = () => {
+const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
     const [file, setFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [duration, setDuration] = useState("10");
@@ -39,13 +39,27 @@ const ECGUploadForm = () => {
         setIsDragging(false);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!file) {
             alert("لطفا یک فایل انتخاب کنید!");
             return;
         }
+
+        // بکند نیست. مراحل رو شبیه سازی میکنیم
+        setCurrentStep(1); 
+        await new Promise((r) => setTimeout(r, 1000)); 
+
+        setCurrentStep(2); 
+        await new Promise((r) => setTimeout(r, 1000)); 
+
+        setCurrentStep(3); 
+        await new Promise((r) => setTimeout(r, 1000)); 
+
+        setCurrentStep(4); 
+        await new Promise((r) => setTimeout(r, 1000)); 
+
     }
 
     const handleInputChange = (e) => {
