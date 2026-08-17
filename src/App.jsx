@@ -10,6 +10,8 @@ import PatientUploadPanel from './components/PatientUploadPanel.jsx'
 import PatientHistory from './components/PatientHistory.jsx'
 import PatientProfile from './components/PatientProfile.jsx'
 import './App.css'
+import DoctorSidebar from './components/DoctorSidebar.jsx'
+import DoctorsPatientList from './components/DoctorsPatientList.jsx'
 
 function App() {
   return (
@@ -18,12 +20,17 @@ function App() {
       <Route path='/login-signup' element={ <LoginSignUp /> }/>
       {/* <Route path='/doctor-panel' element={  }/>
       <Route path='/admin-panel' element={  }/> */}
+      
       <Route path='/patient/dashboard' element={ <PatientDashboard /> }>
         <Route index element={ <PatientOverview />} />
         <Route path='records/:recordId' element={ <PatientRecordDetails /> }/>
         <Route path="ecg-upload" element={<PatientUploadPanel />} />
         <Route path="history" element={<PatientHistory />} />
         <Route path="profile" element={<PatientProfile />} />
+      </Route>
+
+      <Route path='/doctor/dashboard' element={ <DoctorSidebar />}>
+        <Route index element={ <DoctorsPatientList />}/>
       </Route>
     </Routes>
   )
