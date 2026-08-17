@@ -29,7 +29,7 @@ function App() {
         <Route path="profile" element={<PatientProfile />} />
       </Route>
 
-      <Route path='/doctor/dashboard' element={ <DoctorSidebar />}>
+      <Route path='/doctor/patients-list' element={ <DoctorSidebar />}>
         <Route index element={ <DoctorsPatientList />}/>
       </Route>
     </Routes>
