@@ -11,8 +11,9 @@ import PatientHistory from './components/PatientHistory.jsx'
 import PatientProfile from './components/PatientProfile.jsx'
 import './App.css'
 import DoctorSidebar from './components/DoctorSidebar.jsx'
-import DoctorsPatientList from './components/DoctorsPatientList.jsx'
+import DoctorsPatients from './components/DoctorsPatients.jsx'
 import DoctorDashboard from './pages/DoctorDashboard.jsx'
+import DoctorReviewRequests from './components/DoctorReviewRequests.jsx'
 
 function App() {
   return (
@@ -30,8 +31,10 @@ function App() {
         <Route path="profile" element={<PatientProfile />} />
       </Route>
 
-      <Route path='/doctor/patients-list' element={ <DoctorDashboard />}>
-        <Route index element={ <DoctorsPatientList />}/>
+      <Route path='/doctor/dashboard' element={ <DoctorDashboard />}>
+        <Route index element={ <DoctorsPatients />}/>
+        <Route path='reviews' element={ <DoctorReviewRequests />} />
+        {/* <Route path="patients/:patientId" element={<DoctorPatientDetails />} /> */}
       </Route>
     </Routes>
   )

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDoctor } from "../context/DoctorContex";
 import DoctorHeader from "./DoctorHeader";
 
-const DoctorsPatientList = () => {
+const DoctorsPatients = () => {
     // This is very very Static :)))) gotta FIX IT :))))
     const { doctorName, patients, first2letters } = useDoctor();
     return ( 
@@ -70,4 +70,4 @@ const DoctorsPatientList = () => {
      );
 }
  
-export default DoctorsPatientList;
+export default DoctorsPatients;
