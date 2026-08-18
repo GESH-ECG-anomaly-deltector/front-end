@@ -6,7 +6,7 @@ export const DoctorProvider = ({ children }) => {
     //mocking the date here 
     const patient = {
         doctorName: "زینب جنتی",
-        first2letters: "زی",
+        first2letters: "دک",
         doctorCode: 'PT-204',
         doctorNationalId: '0023456789',
         doctorAge: '24',
@@ -16,7 +16,10 @@ export const DoctorProvider = ({ children }) => {
         doctorCity: 'تهران',
 
         patients: [
-            { name: 'zeinab'}
+            { name: 'zeinab', id: 2, age: 24, gender: 'female'},
+            { name: 'zeinab', id: 2, age: 24, gender: 'female'},
+            { name: 'zeinab', id: 2, age: 24, gender: 'female'},
+            { name: 'zeinab', id: 2, age: 24, gender: 'female'},
         ],
     };
 

@@ -12,6 +12,7 @@ import PatientProfile from './components/PatientProfile.jsx'
 import './App.css'
 import DoctorSidebar from './components/DoctorSidebar.jsx'
 import DoctorsPatientList from './components/DoctorsPatientList.jsx'
+import DoctorDashboard from './pages/DoctorDashboard.jsx'
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         <Route path="profile" element={<PatientProfile />} />
       </Route>
 
-      <Route path='/doctor/patients-list' element={ <DoctorSidebar />}>
+      <Route path='/doctor/patients-list' element={ <DoctorDashboard />}>
         <Route index element={ <DoctorsPatientList />}/>
       </Route>
     </Routes>
