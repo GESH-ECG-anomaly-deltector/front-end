@@ -5,6 +5,8 @@ import { useDoctor } from "../context/DoctorContex";
 
 const DoctorReviewRequests = () => {
         const { doctorName, patients, first2letters } = useDoctor();
+        const currentPatientId = 1;
+        const currentRecord = 2;
     return ( 
         <div className="flex flex-col gap-[1.5rem] w-full">
             <DoctorHeader />
@@ -31,12 +33,12 @@ const DoctorReviewRequests = () => {
                                     <span className="bg-warning/20 px-[0.625rem] py-[0.25rem] rounded-full text-warning">
                                         ریسک متوسط
                                     </span>
-                                    <span className="bg-primary flex gap-[0.5rem] items-center justify-center px-[0.75rem] py-[0.25rem] rounded-full text-white">
+                                    <Link to={`/doctor/dashboard/patients/${ currentPatientId }/records/${ currentRecord }`} className="bg-primary flex gap-[0.5rem] items-center justify-center px-[0.75rem] py-[0.25rem] rounded-full text-white">
                                         بررسی
                                         <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.6665 8.66663L0.666504 4.66663L4.6665 0.666626" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                    </span>
+                                    </Link>
                                 </div>
 
                         </Link>

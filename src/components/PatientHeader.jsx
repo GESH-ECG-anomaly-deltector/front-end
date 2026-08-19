@@ -26,6 +26,7 @@ const PatientHeader = () => {
                 <div className="bg-primary/20 flex justify-center h-[2.25rem] items-center rounded-full w-[2.25rem]">
                     <span className="font-normal leading-[1rem] text-[0.75rem]">{ first2letters }</span>
                 </div>
+                
             </div>
         </header>
      );

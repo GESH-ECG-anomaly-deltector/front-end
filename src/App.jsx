@@ -14,6 +14,7 @@ import DoctorSidebar from './components/DoctorSidebar.jsx'
 import DoctorsPatients from './components/DoctorsPatients.jsx'
 import DoctorDashboard from './pages/DoctorDashboard.jsx'
 import DoctorReviewRequests from './components/DoctorReviewRequests.jsx'
+import DoctorPatientDetails from './components/DoctorPatientDetails.jsx'
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
       <Route path='/doctor/dashboard' element={ <DoctorDashboard />}>
         <Route index element={ <DoctorsPatients />}/>
         <Route path='reviews' element={ <DoctorReviewRequests />} />
-        {/* <Route path="patients/:patientId" element={<DoctorPatientDetails />} /> */}
+        <Route path="patients/:patientId/records/:recordId" element={<DoctorPatientDetails />} />
       </Route>
     </Routes>
   )

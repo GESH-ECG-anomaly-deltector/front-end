@@ -31,6 +31,7 @@ export const mockRecords = [
     },
     {
         recId: '1041',
+        date: '۱۴۰۵/۰۵/۱۲ — ۰۹:۲۴',
         lastRecDate: '۱۴۰۵/۰۴/۰۲ — ۱۱:۱۰',
         leadCount: 12,
         duration: 30,

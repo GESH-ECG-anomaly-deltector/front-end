@@ -171,7 +171,6 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
                     placeholder="مثلاً تپش قلب هنگام فعالیت، سرگیجه صبحگاهی…"
                     className="border border-text-muted-foreground/40 font-normal leading-[1.25rem] pt-[0.5626rem] pr-[0.75rem] rounded-[1.15rem] text-[0.875rem] shadow-sm"
                     ></textarea>
-    
             </div>
 
             <div>

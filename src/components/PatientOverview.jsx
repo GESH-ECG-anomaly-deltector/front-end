@@ -139,14 +139,14 @@ const Overview = () => {
                     <p className="font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground">خلاصه‌ی وضعیت قبلی شما براساس آخرین تحلیل‌ها</p>
                 </header>
                 <div className="flex items-end">
-                    <div className="bg-primary flex gap-[0.5rem] h-[2.25rem] items-center px-[1rem] py-[0.8rem] rounded-full w-fit">
+                    <Link to='/patient/dashboard/ecg-upload' className="bg-primary flex gap-[0.5rem] h-[2.25rem] items-center px-[1rem] py-[0.8rem] rounded-full w-fit">
                         <span className="font-medium leading-[1.25rem] text-white text-[0.875rem]">آپلود نوار قلب</span>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 8.66667V14" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2.66657 9.93266C2.17126 9.4266 1.79761 8.81447 1.57392 8.14262C1.35023 7.47077 1.28237 6.75682 1.37547 6.05486C1.46858 5.3529 1.7202 4.68133 2.1113 4.09102C2.50239 3.50071 3.02269 3.00714 3.63279 2.64769C4.24289 2.28825 4.92679 2.07236 5.63268 2.01638C6.33857 1.96039 7.04795 2.06578 7.70708 2.32457C8.36621 2.58335 8.9578 2.98873 9.43706 3.51002C9.91631 4.0313 10.2706 4.65481 10.4732 5.33333H11.6666C12.3102 5.33325 12.9369 5.54021 13.4539 5.92362C13.9709 6.30703 14.3509 6.84657 14.5377 7.46253C14.7246 8.07849 14.7084 8.73821 14.4915 9.34424C14.2746 9.95027 13.8685 10.4705 13.3332 10.828" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M5.33325 11.3333L7.99992 8.66667L10.6666 11.3333" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
+                    </Link>
                 </div>
             </section>
             <section aria-label='general statics' className="flex gap-[1rem] pt-[0.5rem]">
