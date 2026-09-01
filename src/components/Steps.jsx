@@ -1,6 +1,6 @@
 const Steps = () => {
     return ( 
-        <div className="flex flex-col gap-[2rem] h-fit px-[2rem] py-[4rem] w-full">
+        <div id="how-it-works" className="flex flex-col gap-[2rem] h-fit px-[2rem] py-[4rem] w-full">
             <h2 className="font-vazir font-extrabold text-[1.5rem]">از آپلود تا تشخیص، فقط سه قدم</h2>
             <ol className="flex flex-1 gap-[1rem]">
                 <li className="border border-text-muted-foreground/20 flex flex-1 flex-col gap-[0.5rem] pb-[3.25rem] pt-[1.5rem] px-[1.5rem] rounded-[1.4rem]">

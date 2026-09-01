@@ -17,17 +17,18 @@ const LandingHero = () => {
                     شود.</p>
 
                     <div className="flex gap-[0.75rem] pr-[0.5rem]">
-                        <Link to='' className="bg-primary flex gap-[0.5rem] font-vazir font-medium justify-center items-center py-[0.625rem] rounded-full text-[0.875rem] text-background w-[11.75rem]">
+                        <Link to='/login-signup?role=patient&mode=signup' className="bg-primary flex gap-[0.5rem] font-vazir font-medium justify-center items-center py-[0.625rem] rounded-full text-[0.875rem] text-background w-[11.75rem]">
                             شروع به عنوان بیمار
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.99998 12.6666L3.33331 7.99998L7.99998 3.33331" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M12.6666 8H3.33331" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </Link>
-                        <Link t0='' className="bg-white flex font-vazir font-medium h-[2.5rem] items-center px-[1.7375rem] rounded-full text-[0.875rem] w-fit">
+                        <Link to='/login-signup?role=doctor&mode=login' className="bg-white flex font-vazir font-medium h-[2.5rem] items-center px-[1.7375rem] rounded-full text-[0.875rem] w-fit">
                             ورود پزشکان
                         </Link>
                     </div>
+                    {/* TODO: I think this should also be dynamic */}
                     <ul className="flex font-vazir font-extrabold gap-[1rem] h-fit items-start pt-[1.25rem] text-[1.5rem] w-[28rem]">
                         <li className="flex flex-col leading-none gap-0 w-full">
                             <span>94%</span>
@@ -44,6 +45,7 @@ const LandingHero = () => {
                     </ul>
                 </div>
             </div>
+            {/* TODO: This should be dynamic */}
             <div className="bg-white h-fit overflow-hidden rounded-[1.65rem] w-[32.75rem] shadow-sm">
                 <div className="flex gap-[15.25rem] h-fit px-[1.25rem] py-[0.75rem]  w-full">
                     <span className="font-vazir font-semibold text-[0.875rem]">نمونه سیگنال - || lead </span>
@@ -61,9 +63,9 @@ const LandingHero = () => {
                         <img src={ ecgSample } alt="ecg-sample" />
                     </div>
                 </div>
-                {/* TODO: shadow */}
+                {/* TODO: I should make this dynamic too */}
                 <dl className="flex flex-1 h-auto p-[1rem]">
-                    <div className="border-l-[0.05rem] border-text-muted-foreground flex flex-1 flex-col justify-center gap-[0.25rem] items-center">
+                    <div className="border-l-[0.05rem] border-text-muted-foreground flex flex-1 flex-col justify-center gap-[0.25rem] items-center shadow-sm">
                         <dd className="font-vazir font-bold text-[1.125rem]">94%</dd>
                         <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">ریتم سینوسی طبیعی</dt>
                     </div>

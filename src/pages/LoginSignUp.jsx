@@ -1,17 +1,31 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import Logo from "../assets/icons/Logo";
 
 const LoginSignUp = () => {
-    const [mode, setMode] = useState("signup");
-    const [role, setRole] = useState("patient");
+    const [searchParams] = useSearchParams();
+
+    const initialMode = searchParams.get('mode') === 'login' ? 'login' : 'signup';
+    const initialRole = searchParams.get('role') === 'doctor' ? 'doctor' : 'patient'; 
+
+    const [mode, setMode] = useState(initialMode);
+    const [role, setRole] = useState(initialRole);
+
+    useEffect(() => {
+        const m = searchParams.get('mode');
+        const r = searchParams.get('role');
+        if (m === 'login' || m === 'signup') setMode(m);
+        if (r === 'doctor' || r === 'patient') setRole(r);
+
+    }, [searchParams]);
+
     return ( 
         <div className="flex h-screen">
             <div className="bg-primary flex flex-col justify-between p-[2.5rem]">
-                <Link to='' className="flex gap-[0.5rem] items-center justify-start w-fit h-fit">
+                <Link to='/' className="flex gap-[0.5rem] items-center justify-start w-fit h-fit">
                     <div className="flex justify-center items-center h-[2.25rem] w-[2.25rem] flex-shrink-0">
                         <Logo width={36} height={36} className={""}/>
                     </div>

@@ -23,7 +23,6 @@ const PatientUploadPanel = () => {
             <header>
                 <h1 className='font-extrabold leading-[2rem] text-[1.5rem] tracking-[-0.0375rem]'>آپلود نوار قلب</h1>
                 <p className='font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground'>فایل خام ۱۲ لیدی را بارگذاری کنید یا دستگاه را متصل کنید</p>
-                <button></button>
             </header>
             <div className="flex gap-[1rem]">
                 {/* Right Column */}

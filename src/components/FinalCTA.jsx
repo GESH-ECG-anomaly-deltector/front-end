@@ -2,25 +2,26 @@ import { Link } from "react-router-dom";
 
 const FinalCTA = () => {
     return ( 
-        <section aria-labelledby="final-cta" className="flex gap-[2.5rem] items-center py-[4rem]">
+        <section id="start" aria-labelledby="final-cta" className="flex gap-[2.5rem] items-center py-[4rem]">
             <div className="flex flex-1 flex-col gap-[0.75rem] h-auto">
                 <h2 className="font-extrabold text-[1.5rem] leading-[2rem]">آماده‌اید نوار قلب خود را تحلیل کنید؟</h2>
-                <p className="font-normal leading-[1.75rem] text-[0.875rem] text-text-muted-foreground">با چند کلیک فایل ۱۲ لیدی را بارگذاری کنید، مدل هوش مصنوعی آن را پیش‌پردازش و طبقه‌بندی
-می‌کند، و در صورت نیاز می‌توانید نظر یک پزشک متخصص را نیز درخواست دهید.</p>
+                <p className="font-normal leading-[1.75rem] text-[0.875rem] text-text-muted-foreground">
+                    با چند کلیک فایل ۱۲ لیدی را بارگذاری کنید، مدل هوش مصنوعی آن را پیش‌پردازش و طبقه‌بندی
+                    می‌کند، و در صورت نیاز می‌توانید نظر یک پزشک متخصص را نیز درخواست دهید.
+                </p>
                 <div className="flex gap-[0.75rem] pr-[0.5rem]">
-                    <Link to='' className="bg-primary flex gap-[0.5rem] font-vazir font-medium justify-center items-center py-[0.625rem] rounded-full text-[0.875rem] text-background w-[11.75rem]">
+                    <Link to='/login-signup?role=patient&mode=signup' className="bg-primary flex gap-[0.5rem] font-vazir font-medium justify-center items-center py-[0.625rem] rounded-full text-[0.875rem] text-background w-[11.75rem]">
                         شروع به عنوان بیمار
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.99998 12.6666L3.33331 7.99998L7.99998 3.33331" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M12.6666 8H3.33331" stroke="#F9FCFF" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </Link>
-                    <Link to='/login-signup' className="bg-white border border-text-muted-foreground/25 flex font-vazir font-medium h-[2.5rem] items-center px-[1.7375rem] rounded-full text-[0.875rem] w-fit">
+                    <Link to='/login-signup?mode=login' className="bg-white border border-text-muted-foreground/25 flex font-vazir font-medium h-[2.5rem] items-center px-[1.7375rem] rounded-full text-[0.875rem] w-fit">
                         ورود / ثبت‌نام
                     </Link>
                 </div>
             </div>
-            {/* TODO: fix shadow */}
             <div className="border border-text-muted-foreground/25 flex flex-1 flex-col justify-center gap-[1.25rem] p-[1.5rem] rounded-[1.4rem] shadow-sm">
                 <div className="flex flex-1 justify-center items-center gap-[0.75rem]">
                     <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +44,7 @@ const FinalCTA = () => {
                         <p className="font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground">به شبکه متخصصین گِش بپیوندید و پرونده‌های بیماران را بررسی کنید.</p>
                     </div>
                 </div>
-                <Link to="/login-signup" className="border border-text-muted-foreground/25 font-normal text-[0.875rem] rounded-[1.15rem] text-center py-[0.5rem]">ثبت‌نام پزشک</Link>
+                <Link to="/login-signup?mode=signup&role=doctor" className="border border-text-muted-foreground/25 font-normal text-[0.875rem] rounded-[1.15rem] text-center py-[0.5rem]">ثبت‌نام پزشک</Link>
             </div>
         </section>
      );

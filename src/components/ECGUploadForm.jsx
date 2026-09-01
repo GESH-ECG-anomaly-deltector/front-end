@@ -1,13 +1,45 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+// همون الگوریتم رقم کنترلی که سمت بک‌اند هست (NationalCodeUtil) - فقط برای فیدبک سریع‌تر به کاربر
+const isValidNationalCode = (code) => {
+    if (!/^\d{10}$/.test(code)) return false;
+    if (new Set(code.split('')).size === 1) return false; // 0000000000 و مشابه
+
+    const digits = code.split('').map(Number);
+    const checkDigit = digits[9];
+    const sum = digits.slice(0, 9).reduce((acc, d, i) => acc + d * (10 - i), 0);
+    const remainder = sum % 11;
+
+    return remainder < 2 ? checkDigit === remainder : checkDigit === 11 - remainder;
+};
 
 const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
     const [file, setFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
+    //TODO: This 10 and 12-lead is supposed to be dynamic right?
     const [duration, setDuration] = useState("10");
     const [source, setSource] = useState("12-lead");
     const [symptoms, setSymptoms] = useState("");
+    //This is defualt and when the user opens the page, the state of doctorReview is on! user can change that btw.
     const [doctorReview, setDoctorReview] = useState(true);
+    const [fileError, setFileError] = useState('');
     const fileInputRef = useRef(null);
+    const { currentUser, addRecord, getNationalCode } = useAuth();
+    const navigate = useNavigate();
+
+    // اگه کاربر از قبل کد ملی ثبت‌شده نداره، باید همین‌جا ازش بگیریم
+    const [needsNationalCode, setNeedsNationalCode] = useState(null); // null = هنوز چک نشده
+    const [nationalCode, setNationalCode] = useState('');
+    const [nationalCodeError, setNationalCodeError] = useState('');
+
+    useEffect(() => {
+        if (!currentUser?.profile?.id) return;
+        getNationalCode(currentUser.profile.id).then((code) => {
+            setNeedsNationalCode(!code);
+        });
+    }, [currentUser, getNationalCode]);
 
     const acceptedFormats = [".wfdb", ".csv", ".edf", ".xml"];
     const maxSizeMB = 20;
@@ -22,6 +54,7 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
         }
 
         setFile(selectedFile);
+        setFileError(''); // If there was an error because of not correctly selecting the file, the error will be none cause this time the process of selecting the file is valid.
     };
 
     const handleDrop = (e) => {
@@ -43,38 +76,54 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
         e.preventDefault();
 
         if (!file) {
-            alert("لطفا یک فایل انتخاب کنید!");
+            setFileError("لطفاً یک فایل انتخاب کنید یا آن را در این کادر رها کنید.");
             return;
         }
 
-        // بکند نیست. مراحل رو شبیه سازی میکنیم
-        setCurrentStep(1); 
-        await new Promise((r) => setTimeout(r, 1000)); 
+        setNationalCodeError('');
+        if (needsNationalCode) {
+            if (!nationalCode.trim()) {
+                setNationalCodeError('برای ثبت اولین نوار قلب، وارد کردن کد ملی الزامی است');
+                return;
+            }
+            if (!isValidNationalCode(nationalCode.trim())) {
+                setNationalCodeError('کد ملی وارد شده معتبر نیست');
+                return;
+            }
+        }
 
-        setCurrentStep(2); 
-        await new Promise((r) => setTimeout(r, 1000)); 
+        setCurrentStep(1);
+        await new Promise((r) => setTimeout(r, 500));
 
-        setCurrentStep(3); 
-        await new Promise((r) => setTimeout(r, 1000)); 
+        setCurrentStep(2);
+        await new Promise((r) => setTimeout(r, 500));
 
-        setCurrentStep(4); 
-        await new Promise((r) => setTimeout(r, 1000)); 
+        setCurrentStep(3);
+        await new Promise((r) => setTimeout(r, 500));
+
+        const result = await addRecord({
+            duration: Number(duration),
+            source,
+            symptoms: symptoms || null,
+            needsDoctorReview: doctorReview,
+            nationalCode: needsNationalCode ? nationalCode.trim() : undefined,
+        });
+
+        setCurrentStep(4);
+        await new Promise((r) => setTimeout(r, 500));
+
+        if (!result.success) {
+            setFileError(result.message || 'ثبت رکورد با خطا مواجه شد. مطمئن شوید بک‌اند روشن است و دوباره تلاش کنید.');
+            return;
+        }
+
+        navigate(`/patient/dashboard/records/${result.record.recId}`);
 
     }
 
     const handleInputChange = (e) => {
         handleFileSelect(e.target.files[0]);
-    };    
-
-
-    const formData = {
-        file,
-        duration,
-        source,
-        symptoms,
-        doctorReview,
     };
-    
 
     return (
         <form
@@ -87,7 +136,9 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
                 onDrop={ handleDrop }
                 onDragOver={ handleDragOver }
                 onDragLeave={ handleDragLeave }
-                className={`relative bg-primary/10 border border-dotted border-text-muted-foreground/25 flex flex-col justify-center items-center px-[1.5375rem] overflow-hidden py-[3.5375rem] rounded-[1.4rem]`}
+                className={`relative bg-primary/10 border border-dotted flex flex-col justify-center items-center px-[1.5375rem] overflow-hidden py-[3.5375rem] rounded-[1.4rem] ${
+                    fileError ? 'border-red-400' : 'border-text-muted-foreground/25'
+                }`}
             >
                 <div className="absolute h-full top-0 left-0 w-[1.3rem] bg-pulse opacity-20 pointer-events-none"></div>
                 <div className="absolute top-0 left-0 w-full h-[0.5rem] bg-pulse opacity-20 pointer-events-none"></div>
@@ -135,6 +186,29 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
                             />
                 </label>
             </div>
+            {fileError && <p className="text-red-500 text-[0.75rem] -mt-[0.5rem]">{fileError}</p>}
+
+            {needsNationalCode && (
+                <div className="flex flex-col gap-[0.3125rem] pt-[0.125rem]">
+                    <label htmlFor="nationalCode" className="font-medium leading-[0.875rem] text-[0.875rem]">
+                        کد ملی <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        id="nationalCode"
+                        type="text"
+                        inputMode="numeric"
+                        dir="ltr"
+                        placeholder="0012345678"
+                        value={ nationalCode }
+                        onChange={(e) => setNationalCode(e.target.value)}
+                        className={`border ${nationalCodeError ? 'border-red-400' : 'border-text-muted-foreground/25'} h-[2.75rem] px-[0.8rem] rounded-[1.15rem] shadow-sm w-full`}
+                    />
+                    <p className="font-normal leading-[1rem] text-[0.75rem] text-text-muted-foreground">
+                        برای ثبت اولین نوار قلب لازم است؛ دفعات بعد دیگر نیازی به وارد کردنش نیست.
+                    </p>
+                    {nationalCodeError && <p className="text-red-500 text-[0.75rem]">{nationalCodeError}</p>}
+                </div>
+            )}
 
             {/* Duration and Source */}
             {/* fixed width it has */}
@@ -208,7 +282,8 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
             </div>
             <button
                 type="submit"
-                className="bg-primary h-[2.5rem] font-medium leading-[1.25rem] text-white rounded-[1.15rem] text-[0.875rem] w-full"
+                disabled={ needsNationalCode === null }
+                className="bg-primary h-[2.5rem] font-medium leading-[1.25rem] text-white rounded-[1.15rem] text-[0.875rem] w-full disabled:opacity-60"
             >
                 شروع تحلیل
             </button>
