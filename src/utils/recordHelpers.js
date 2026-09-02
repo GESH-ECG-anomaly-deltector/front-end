@@ -29,8 +29,7 @@ export const getPatientCardStatus = (records, patientId) => {
 
 
 /**
- * همه‌ی رکوردهای متعلق به یه بیمار خاص رو برمی‌گردونه.
- * @param {Array} records - آرایه‌ی کامل رکوردها (records.json)
+ * @param {Array} records
  * @param {string} patientId
  * @returns {Array}
  */
@@ -39,14 +38,6 @@ export const getRecordsByPatientId = (records, patientId) => {
 };
 
 /**
- * نکته: این تابع به فیلد r.dateISO نیاز داره، ولی رکوردهای فعلی توی recordsData.json
- * فقط lastRecDate (تاریخ شمسی به‌صورت رشته، مثل "۱۴۰۵/۰۵/۱۲") رو دارن، نه dateISO.
- * فعلاً این تابع جایی صدا زده نمی‌شه (dead code)، ولی اگه خواستی استفاده‌اش کنی،
- * باید یا یه فیلد dateISO واقعی (مثلاً "2026-08-03T09:24:00") به رکوردها اضافه کنی،
- * یا این تابع رو با یه parser تاریخ شمسی بازنویسی کنی.
- * رکوردها رو بر اساس تاریخ به‌صورت نزولی (جدیدترین اول) مرتب می‌کنه.
- * از spread ([...records]) استفاده می‌شه تا آرایه‌ی اصلی دست‌نخورده بمونه،
- * چون .sort() آرایه‌ی ورودی رو مستقیم mutate می‌کنه.
  * @param {Array} records
  * @returns {Array}
  */
@@ -57,8 +48,7 @@ export const sortRecordsByDateDesc = (records) => {
 };
 
 /**
- * آخرین (جدیدترین) رکورد یه بیمار خاص رو برمی‌گردونه.
- * @param {Array} records - آرایه‌ی کامل رکوردها
+ * @param {Array} records
  * @param {string} patientId
  * @returns {Object|undefined}
  */
@@ -68,7 +58,6 @@ export const getLatestRecordByPatientId = (records, patientId) => {
 };
 
 /**
- * یه رکورد خاص رو با شناسه‌ش پیدا می‌کنه.
  * @param {Array} records
  * @param {string} recId
  * @returns {Object|undefined}
@@ -78,8 +67,7 @@ export const getRecordById = (records, recId) => {
 };
 
 /**
- * همه‌ی بیمارهای متعلق به یه پزشک خاص رو برمی‌گردونه.
- * @param {Array} patients - آرایه‌ی کامل بیمارها (patients.json)
+ * @param {Array} patients
  * @param {string} doctorId
  * @returns {Array}
  */
@@ -88,7 +76,6 @@ export const getPatientsByDoctorId = (patients, doctorId) => {
 };
 
 /**
- * یه بیمار خاص رو با شناسه‌ش پیدا می‌کنه.
  * @param {Array} patients
  * @param {string} patientId
  * @returns {Object|undefined}
@@ -98,11 +85,9 @@ export const getPatientById = (patients, patientId) => {
 };
 
 /**
- * رکوردهایی که هنوز نظر پزشک روشون ثبت نشده (در انتظار بررسی) رو برمی‌گردونه.
- * برای صفحه‌ی «درخواست‌های بررسی» پزشک استفاده می‌شه.
  * @param {Array} records
- * @param {string} doctorId - اختیاری: اگه بدی، فقط رکوردهای بیمارهای همون پزشک برمی‌گرده
- * @param {Array} patients - فقط وقتی doctorId دادی لازمه
+ * @param {string} doctorId
+ * @param {Array} patients
  * @returns {Array}
  */
 export const getPendingReviewRecords = (records, doctorId, patients) => {
@@ -115,7 +100,6 @@ export const getPendingReviewRecords = (records, doctorId, patients) => {
 };
 
 /**
- * جست‌وجوی رکوردها بر اساس شناسه (REC-xxxx) یا تاریخ — برای اینپوت سرچ.
  * @param {Array} records
  * @param {string} query
  * @returns {Array}

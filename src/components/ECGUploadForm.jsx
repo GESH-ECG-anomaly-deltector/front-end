@@ -2,10 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-// همون الگوریتم رقم کنترلی که سمت بک‌اند هست (NationalCodeUtil) - فقط برای فیدبک سریع‌تر به کاربر
 const isValidNationalCode = (code) => {
     if (!/^\d{10}$/.test(code)) return false;
-    if (new Set(code.split('')).size === 1) return false; // 0000000000 و مشابه
+    if (new Set(code.split('')).size === 1) return false;
 
     const digits = code.split('').map(Number);
     const checkDigit = digits[9];
@@ -29,8 +28,7 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
     const { currentUser, addRecord, getNationalCode } = useAuth();
     const navigate = useNavigate();
 
-    // اگه کاربر از قبل کد ملی ثبت‌شده نداره، باید همین‌جا ازش بگیریم
-    const [needsNationalCode, setNeedsNationalCode] = useState(null); // null = هنوز چک نشده
+    const [needsNationalCode, setNeedsNationalCode] = useState(null);
     const [nationalCode, setNationalCode] = useState('');
     const [nationalCodeError, setNationalCodeError] = useState('');
 

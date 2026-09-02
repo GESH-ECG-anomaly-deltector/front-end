@@ -9,7 +9,7 @@ const ChooseDoctor = () => {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sendingId, setSendingId] = useState(null);
-    const [message, setMessage] = useState(null); // { type: 'success' | 'error', text }
+    const [message, setMessage] = useState(null);
 
     useEffect(() => {
         (async () => {

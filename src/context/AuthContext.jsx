@@ -172,7 +172,6 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // چک می‌کنه کاربر (با profileId بیمار) از قبل کد ملی ثبت‌شده داره یا نه
     const getNationalCode = async (profileId) => {
         try {
             const res = await fetch(`${API_BASE_URL}/users/by-profile/${profileId}`);

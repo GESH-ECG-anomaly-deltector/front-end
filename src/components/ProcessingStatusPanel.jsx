@@ -2,7 +2,6 @@ const ProcessingStatusPanel = ({ currentStep, steps }) => {
     const progressPercent = (currentStep / steps.length) * 100;
 
     return ( 
-        // TODO: وقتی که هر مرحله تکمیل شد نوار پیشرفت باید پر بشه کم کم.
         <aside className="bg-white border border-text-muted-foreground/24 flex flex-1 flex-col gap-[1rem] h-fit p-[1.4875rem] rounded-[1.4rem] shadow-sm whitespace-nowrap">
             <h2 
                 id="process-status-heading"
