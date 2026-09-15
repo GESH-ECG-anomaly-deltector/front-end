@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const isValidNationalCode = (code) => {
     if (!/^\d{10}$/.test(code)) return false;
-    if (new Set(code.split('')).size === 1) return false;
+    if (new Set(code.split('')).size === 1) return false; // 0000000000 و مشابه
 
     const digits = code.split('').map(Number);
     const checkDigit = digits[9];
@@ -39,7 +39,7 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
         });
     }, [currentUser, getNationalCode]);
 
-    const acceptedFormats = [".wfdb", ".csv", ".edf", ".xml"];
+    const acceptedFormats = [".csv"];
     const maxSizeMB = 20;
     
     const handleFileSelect = (selectedFile) => {
@@ -100,6 +100,7 @@ const ECGUploadForm = ({ currentStep, setCurrentStep }) => {
         await new Promise((r) => setTimeout(r, 500));
 
         const result = await addRecord({
+            file,
             duration: Number(duration),
             source,
             symptoms: symptoms || null,

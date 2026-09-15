@@ -10,16 +10,6 @@ export const AuthProvider = ({ children }) => {
 
     const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-    // if refreshed, no need to login
-    // useEffect(() => {
-    //     const savedSession = localStorage.getItem('authSession');
-    //     if (savedSession) {
-    //         const parsed = JSON.parse(savedSession);
-    //         setCurrentUser(parsed);
-    //         fetchRecordsForCurrentUser(parsed);
-    //     }
-    // }, []);
-
     useEffect(() => {
         const savedSession = localStorage.getItem('authSession');
         if (savedSession) {
@@ -39,6 +29,11 @@ export const AuthProvider = ({ children }) => {
 
     const fetchRecordsForCurrentUser = async (user) => {
         try {
+            if (user.role === 'admin')
+            {
+                setRecordsData([]);
+                return;
+            }
             if (user.role === 'patient') {
                 // why there is records in the url?
                 const res = await fetch(`${API_BASE_URL}/records/patient/${user.profile.id}`);
@@ -88,6 +83,32 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const loginWithEmailPassword = async (email, password) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/auth/login/email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                return { success: false, message: data.message };
+            }
+
+            const user = { role: data.role, profile: data.profile, token: data.token, userId: data.userId };
+            setCurrentUser(user);
+            localStorage.setItem('authSession', JSON.stringify(user));
+
+            await fetchRecordsForCurrentUser(user);
+
+            return { success: true, role: data.role };
+        } catch (err) {
+            return { success: false, message: 'ارتباط با سرور برقرار نشد.' };
+        }
+    };
+
     
     const signup = async ({ role, name, phone, email, password, medicalCode }) => {
         try {
@@ -95,6 +116,30 @@ export const AuthProvider = ({ children }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ role, name, phone, email, password, medicalCode }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                return { success: false, message: data.message };
+            }
+
+            const user = { role: data.role, profile: data.profile, token: data.token, userId: data.userId };
+            setCurrentUser(user);
+            localStorage.setItem('authSession', JSON.stringify(user));
+
+            return { success: true, role: data.role };
+        } catch (err) {
+            return { success: false, message: 'ارتباط با سرور برقرار نشد.' };
+        }
+    };
+
+    const signupWithEmail = async ({ role, name, phone, email, code, password, medicalCode }) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/auth/signup/email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role, name, phone, email, code, password, medicalCode }),
             });
 
             const data = await res.json();
@@ -141,21 +186,22 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const addRecord = async ({ duration, source, symptoms, needsDoctorReview, nationalCode }) => {
+    const addRecord = async ({ file, duration, source, symptoms, needsDoctorReview, nationalCode }) => {
         if (!currentUser) return { success: false, message: 'ابتدا وارد شوید' };
 
         try {
-            const res = await fetch(`${API_BASE_URL}/records`, {
+            const formData = new FormData();
+            formData.append('patientId', currentUser.profile.id);
+            formData.append('duration', duration);
+            formData.append('source', source);
+            if (symptoms) formData.append('symptoms', symptoms);
+            formData.append('needsDoctorReview', needsDoctorReview);
+            if (nationalCode) formData.append('nationalCode', nationalCode);
+            formData.append('file', file);
+
+            const res = await fetch(`${API_BASE_URL}/records/upload`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    patientId: currentUser.profile.id,
-                    duration,
-                    source,
-                    symptoms,
-                    needsDoctorReview,
-                    nationalCode,
-                }),
+                body: formData,
             });
 
             const data = await res.json();
@@ -198,6 +244,27 @@ export const AuthProvider = ({ children }) => {
         } catch (err) {
             console.error('خطا در ثبت درخواست بررسی پزشک:', err);
             return null;
+        }
+    };
+
+    const submitDoctorReview = async (recId, doctorId, note, approved = true) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/records/${recId}/review`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ doctorId, note, approved }),
+            });
+
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                return { success: false, message: data.message || 'ثبت نظر پزشک ناموفق بود' };
+            }
+
+            const updatedRecord = await res.json();
+            setRecordsData((prev) => prev.map((r) => (r.recId === recId ? updatedRecord : r)));
+            return { success: true, record: updatedRecord };
+        } catch (err) {
+            return { success: false, message: 'ارتباط با سرور برقرار نشد.' };
         }
     };
 
@@ -336,12 +403,46 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const setUserActive = async (userId, active) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/admin/users/${userId}/active?active=${active}`, {
+                method: 'PATCH',
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                return { success: false, message: data.message };
+            }
+
+            return { success: true, user: data };
+        } catch (err) {
+            return { success: false, message: 'ارتباط با سرور برقرار نشد.' };
+        }
+    };
+
+    const approveDoctorFromAdmin = async (doctorProfileId) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/admin/doctors/${doctorProfileId}/approve`, {
+                method: 'POST',
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                return { success: false, message: data.message };
+            }
+
+            return { success: true, doctor: data };
+        } catch (err) {
+            return { success: false, message: 'ارتباط با سرور برقرار نشد.' };
+        }
+    };
+
 
     return (
         <AuthContext.Provider value={{ 
-            currentUser, login, signup, logout, recordsData, addRecord, updateProfile, requestDoctorReview, sendOtp, verifyOtp,
+            currentUser, login, loginWithEmailPassword, signup, signupWithEmail, logout, recordsData, addRecord, updateProfile, requestDoctorReview, submitDoctorReview, sendOtp, verifyOtp,
             getAllUsers, getApprovedDoctors, requestDoctorAssignment, getPendingAssignmentRequests, acceptAssignmentRequest,
-            getNationalCode
+            getNationalCode, setUserActive, approveDoctorFromAdmin
         }}>
             {children}
         </AuthContext.Provider>

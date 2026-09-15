@@ -4,10 +4,9 @@ const FinalCTA = () => {
     return ( 
         <section id="start" aria-labelledby="final-cta" className="flex gap-[2.5rem] items-center py-[4rem]">
             <div className="flex flex-1 flex-col gap-[0.75rem] h-auto">
-                <h2 className="font-extrabold text-[1.5rem] leading-[2rem]">آماده‌اید نوار قلب خود را تحلیل کنید؟</h2>
+                <h2 className="font-extrabold text-[1.5rem] leading-[2rem]">بررسی نوار قلب</h2>
                 <p className="font-normal leading-[1.75rem] text-[0.875rem] text-text-muted-foreground">
-                    با چند کلیک فایل ۱۲ لیدی را بارگذاری کنید، مدل هوش مصنوعی آن را پیش‌پردازش و طبقه‌بندی
-                    می‌کند، و در صورت نیاز می‌توانید نظر یک پزشک متخصص را نیز درخواست دهید.
+                    نوار قلب ۱۲ لیدی خود را در سامانه ثبت کنید. پس از بررسی سیگنال، نتیجه تحلیل در حساب کاربری شما نمایش داده می‌شود. در صورت نیاز، می‌توانید نتیجه را برای بررسی پزشک متخصص نیز ارسال کنید.
                 </p>
                 <div className="flex gap-[0.75rem] pr-[0.5rem]">
                     <Link to='/login-signup?role=patient&mode=signup' className="bg-primary flex gap-[0.5rem] font-vazir font-medium justify-center items-center py-[0.625rem] rounded-full text-[0.875rem] text-background w-[11.75rem]">
@@ -40,8 +39,10 @@ const FinalCTA = () => {
                         </defs>
                     </svg>
                     <div className="flex flex-col w-fit">
-                        <h3 className="font-bold leading-[1.5rem] text-[1rem]">پزشک هستید؟</h3>
-                        <p className="font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground">به شبکه متخصصین گِش بپیوندید و پرونده‌های بیماران را بررسی کنید.</p>
+                        <h3 className="font-bold leading-[1.5rem] text-[1rem]">بخش پزشکان</h3>
+                        <p className="font-normal leading-[1.25rem] text-[0.875rem] text-text-muted-foreground">
+                            پزشکان پس از تأیید حساب کاربری می‌توانند پرونده بیماران و نتایج بررسی نوار قلب آن‌ها را مشاهده کنند.
+                        </p>
                     </div>
                 </div>
                 <Link to="/login-signup?mode=signup&role=doctor" className="border border-text-muted-foreground/25 font-normal text-[0.875rem] rounded-[1.15rem] text-center py-[0.5rem]">ثبت‌نام پزشک</Link>

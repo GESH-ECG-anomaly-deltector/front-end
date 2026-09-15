@@ -13,7 +13,7 @@ const API_BASE_URL = 'http://localhost:8080/api';
 
 const DoctorPatientDetails = () => {
     const { patientId } = useParams();
-    const { currentUser, recordsData } = useAuth();
+    const { currentUser, recordsData, submitDoctorReview } = useAuth();
     const navigate = useNavigate();
 
     const [patient, setPatient] = useState(null);
@@ -38,6 +38,8 @@ const DoctorPatientDetails = () => {
     }, [patientId]);
 
     const [doctorNote, setDoctorNote] = useState("");
+    const [reviewSubmitting, setReviewSubmitting] = useState(false);
+    const [reviewError, setReviewError] = useState("");
 
     if (patientLoading) {
         return (
@@ -63,11 +65,27 @@ const DoctorPatientDetails = () => {
         );
     }
 
-    const latestResult = patientRecords[0];
+    const latestResult = patientRecords.reduce((latest, r) => {
+        if (!latest) return r;
+        return new Date(r.createdAt) > new Date(latest.createdAt) ? r : latest;
+    }, null);
 
     const primaryDiagnosis = latestResult.diagnoses.find(
         (d) => d.code === latestResult.primaryDiagnosisCode
     ) || latestResult.diagnoses[0];
+
+    const handleSubmitReview = async (approved) => {
+        setReviewSubmitting(true);
+        setReviewError("");
+        const result = await submitDoctorReview(latestResult.recId, currentUser.profile.id, doctorNote, approved);
+        setReviewSubmitting(false);
+
+        if (!result.success) {
+            setReviewError(result.message);
+            return;
+        }
+        setDoctorNote("");
+    };
 
 
     return ( 
@@ -151,15 +169,28 @@ const DoctorPatientDetails = () => {
                         </div>
                         <div className="flex flex-col pt-[0.25rem] pl-[0.625rem]">
                             <div className="flex gap-[0.5rem] font-medium justify-end leading-[1.25rem] text-[0.875rem]">
-                                <button type="button" className="border border-text-muted-foreground/24 px-[1rem] py-[0.5rem] rounded-full shadow-sm">
+                                <button
+                                    type="button"
+                                    disabled={ reviewSubmitting }
+                                    onClick={ () => handleSubmitReview(false) }
+                                    className="border border-text-muted-foreground/24 px-[1rem] py-[0.5rem] rounded-full shadow-sm disabled:opacity-50"
+                                >
                                     رد تشخیص و ثبت نظر جایگزین
                                 </button>
                                 <button type="button" className="px-[1rem] py-[0.5rem]">
                                     درخواست آزمایش تکمیلی
                                 </button>
                             </div>
+                            { reviewError && (
+                                <p className="text-red-500 text-[0.8rem] text-left pt-[0.25rem]">{ reviewError }</p>
+                            )}
                             <div className="flex justify-end">
-                                <button type="button" className="bg-primary flex gap-[0.5rem] items-center leading-[1.25rem] px-[1rem] py-[0.5rem] rounded-[1.15rem] text-[0.875rem] text-white w-fit">
+                                <button
+                                    type="button"
+                                    disabled={ reviewSubmitting }
+                                    onClick={ () => handleSubmitReview(true) }
+                                    className="bg-primary flex gap-[0.5rem] items-center leading-[1.25rem] px-[1rem] py-[0.5rem] rounded-[1.15rem] text-[0.875rem] text-white w-fit disabled:opacity-60"
+                                >
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#clip0_32_260)">
                                     <path d="M8.00016 14.6666C11.6821 14.6666 14.6668 11.6818 14.6668 7.99992C14.6668 4.31802 11.6821 1.33325 8.00016 1.33325C4.31826 1.33325 1.3335 4.31802 1.3335 7.99992C1.3335 11.6818 4.31826 14.6666 8.00016 14.6666Z" stroke="#F9FCFF" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
@@ -171,7 +202,7 @@ const DoctorPatientDetails = () => {
                                     </clipPath>
                                     </defs>
                                 </svg>
-                                تایید تشخیص مدل
+                                { reviewSubmitting ? 'در حال ثبت...' : 'تایید تشخیص مدل' }
                             </button>
                             </div>
                         </div>

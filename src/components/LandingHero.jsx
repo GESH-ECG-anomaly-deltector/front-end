@@ -8,13 +8,13 @@ const LandingHero = () => {
             <div className="h-fit w-[32.75rem]">
                 <div className="flex flex-col gap-[1.25rem]">
                     <h1 className="font-vazir font-extrabold text-[3rem]">
-                        نوار قلب را آپلود کنید،
+                        نوار قلب خود را آپلود کنید،
                         <br />
-                        <span className="text-primary">تشخیص هوشمند</span> را ببینید.
+                        <span className="text-primary">نتیجه بررسی</span> را ببینید.
                     </h1>
-                    <p className="font-vazir font-regular text-[1rem] text-text-muted-foreground w-[32rem]">گِش سیگنال‌های الکتریکی قلب را با مدل یادگیری عمیق تحلیل می‌کند تا در مناطقی
-                    که دسترسی به پزشک متخصص دشوار است، غربالگری سریع و قابل اتکا ممکن
-                    شود.</p>
+                    <p className="font-vazir font-regular text-[1rem] text-text-muted-foreground w-[32rem]">
+                        گِش نوار قلب شما را با استفاده از مدل یادگیری عمیق بررسی می‌کند و نتیجه‌ی تحلیل را در اختیار شما قرار می‌دهد. این سامانه برای کمک به غربالگری و بررسی اولیه طراحی شده است و نتیجه‌ی آن جایگزین نظر پزشک نیست.
+                    </p>
 
                     <div className="flex gap-[0.75rem] pr-[0.5rem]">
                         <Link to='/login-signup?role=patient&mode=signup' className="bg-primary flex gap-[0.5rem] font-vazir font-medium justify-center items-center py-[0.625rem] rounded-full text-[0.875rem] text-background w-[11.75rem]">
@@ -65,17 +65,21 @@ const LandingHero = () => {
                 </div>
                 {/* TODO: I should make this dynamic too */}
                 <dl className="flex flex-1 h-auto p-[1rem]">
-                    <div className="border-l-[0.05rem] border-text-muted-foreground flex flex-1 flex-col justify-center gap-[0.25rem] items-center shadow-sm">
+                    <div className="border-l-[0.05rem] border-text-muted-foreground flex flex-1 flex-col justify-center gap-[0.25rem] items-center">
                         <dd className="font-vazir font-bold text-[1.125rem]">94%</dd>
-                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">ریتم سینوسی طبیعی</dt>
+                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">آریتمی فوق‌بطنی</dt>
                     </div>
                     <div className="border-l-[0.05rem] border-text-muted-foreground flex flex-1 flex-col justify-center gap-[0.25rem] items-center">
-                        <dd className="font-vazir font-bold text-[1.125rem]">4%</dd>
-                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">برادی‌کاری</dt>
+                        <dd className="font-vazir font-bold text-[1.125rem]">32%</dd>
+                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">ایسکمی و تغییرات</dt>
+                    </div>
+                    <div className="border-l-[0.05rem] border-text-muted-foreground flex flex-1 flex-col justify-center gap-[0.25rem] items-center">
+                        <dd className="font-vazir font-bold text-[1.125rem]">2%</dd>
+                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">برادی‌آریتمی</dt>
                     </div>
                     <div className="flex flex-1 flex-col justify-center gap-[0.25rem] items-center">
-                        <dd className="font-vazir font-bold text-[1.125rem]">2%</dd>
-                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">فیبریلاسیون</dt>
+                        <dd className="font-vazir font-bold text-[1.125rem]">0%</dd>
+                        <dt className="font-vazir font-normal text-[0.6875rem] text-text-muted-foreground">ریتم سینوسی طبیعی</dt>
                     </div>
                 </dl>
             </div>

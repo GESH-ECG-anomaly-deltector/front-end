@@ -5,8 +5,8 @@ const AdminHeader = () => {
         return ( 
             <header className="bg-white border border-text-muted-foreground/24 flex justify-between items-center px-[0.9875rem] py-[0.7375rem] rounded-[1.4rem] shadow-sm w-full">
                 <div className="flex flex-col">
-                    <span className="font-semibold leading-[1.25rem] text-[0.875rem]">{ currentUser.profile.name }</span>
-                    <span className="font-normal leading-[1rem] text-[0.75rem] text-text-muted-foreground">پنل ادمین</span>
+                    <span className="font-semibold leading-[1.25rem] text-[0.875rem]">مدیر سامانه</span>
+                    <span className="font-normal leading-[1rem] text-[0.75rem] text-text-muted-foreground">مدیر سامانه</span>
                 </div>
                 <div className="flex gap-[1.125rem] items-center">
                     <button>
@@ -23,7 +23,7 @@ const AdminHeader = () => {
                         </svg>
                     </button>
                     <div className="bg-primary/20 flex justify-center h-[2.25rem] items-center rounded-full w-[2.25rem]">
-                        <span className="font-normal leading-[1rem] text-[0.75rem]">{ currentUser.profile.first2letters }</span>
+                        <span className="font-normal leading-[1rem] text-[0.75rem]">مد</span>
                     </div>
                 </div>
             </header>

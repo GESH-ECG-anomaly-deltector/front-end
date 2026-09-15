@@ -14,7 +14,6 @@
         case 'processing':
             return 'bg-text-muted-foreground/15 text-text-muted-foreground';
         
-            // مثل همون بلوک شاخه‌ای راست که هیچی براش نداریم
         default:
             return 'bg-purple-100 purple-red-600';
     }

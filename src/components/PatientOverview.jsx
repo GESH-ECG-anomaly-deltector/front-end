@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
 
 import PatientHeader from "./PatientHeader";
+import EcgLeadChart from "./EcgLeadChart";
 import { useAuth } from "../context/AuthContext";
-import ecgSample from '../assets/images/ecg-sample2.png'
+
+const PRIMARY_LEAD_NAME = 'II';
 
 const Overview = () => {
     const { currentUser, recordsData } = useAuth();
@@ -12,6 +15,21 @@ const Overview = () => {
     );
 
     let latestResult = myRecords[0];
+
+    const primaryLead = useMemo(() => {
+        if (!latestResult?.leads) return null;
+        const leadsWithData = latestResult.leads.map((lead) => {
+            let samples = [];
+            try {
+                samples = lead.graph ? JSON.parse(lead.graph) : [];
+            } catch {
+                samples = [];
+            }
+            return { ...lead, samples };
+        });
+        return leadsWithData.find((lead) => lead.name === PRIMARY_LEAD_NAME) || leadsWithData[0];
+    }, [latestResult]);
+
     if (!latestResult) {
         return (
             <div className="flex flex-col gap-[1rem]">
@@ -36,9 +54,8 @@ const Overview = () => {
         )
     }
 
-    const primaryDiagnosis = latestResult.diagnoses.find(
-        (d) => d.code === latestResult.primaryDiagnosisCode
-    ) || latestResult.diagnoses[0];
+    const model3Diagnoses = latestResult.diagnoses.filter((d) => d.modelSource === 'model_3');
+    const primaryDiagnosis = model3Diagnoses[0] || latestResult.diagnoses[0];
     
     const pendingCount = myRecords.filter((r) => r.status === 'pending').length;
     const testsCount = myRecords.length;
@@ -202,7 +219,7 @@ const Overview = () => {
             <article className="bg-white flex flex-col relative rounded-[1.4rem] shadow-sm">
                 <header>
                     <div className="flex flex-col p-[1.25rem]">
-                        <span className="font-bold leading-[1.5rem] text-[1rem]">آخرین نتیجه —  REC-{ latestResult.recId }</span>
+                        <span className="font-bold leading-[1.5rem] text-[1rem]">آخرین نتیجه —  REC-{ latestResult.recId }</span>
                         <span className="font-normal leading-[1rem] text-[0.75rem] text-text-muted-foreground">{ latestResult.lastRecDate }</span>
                     </div>
                 </header>
@@ -211,17 +228,15 @@ const Overview = () => {
                     <figcaption className="absolute bg-success/15 font-semibold top-[1rem] left-[1.25rem] px-[0.625rem] py-[0.25rem] rounded-full text-[0.75rem] text-success">
                         { primaryDiagnosis.label } . { primaryDiagnosis.confidence }%
                     </figcaption>
-                    <div className="h-auto overflow-hidden w-fit">
+                    <div className="h-auto overflow-hidden w-full px-[0.75rem] pt-[1rem]">
                         <div className="absolute h-full top-0 left-0 w-[1.3rem] bg-pulse opacity-20 pointer-events-none"></div>
                         <div className="absolute top-0 left-0 w-full h-[0.5rem] bg-pulse opacity-20 pointer-events-none"></div>
-                        <div>
-                            <img src={ ecgSample } alt="ecg-sample" />
-                        </div>
+                        <EcgLeadChart data={ primaryLead?.samples } sampleRate={ latestResult.sampleRate } height={ 140 } />
                     </div>
                 </figure>
                 
                 <ul className="p-[1.25rem] flex flex-col gap-[0.75rem]">
-                    { latestResult && latestResult.diagnoses.map((data) => (
+                    { model3Diagnoses.map((data) => (
                         <li key={ data.code } className=" flex flex-col gap-[0.375rem] pb-[0.5rem]">
                             <div className="flex justify-between font-normal leading-[1.25rem] text-[0.875rem]">
                                 <span className="">{ data.label }</span>

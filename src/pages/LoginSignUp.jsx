@@ -35,9 +35,9 @@ const LoginSignUp = () => {
                     </div>
                 </Link>
                 <div className="">
-                    <h1 className="font-extrabold leading-[2.625rem] text-white text-[1.875rem]">غربالگری قلب در چند ثانیه!</h1>
-                    <p className="font-normal leading-[2rem] text-white text-[0.875rem]">حساب کاربری خود را بسازید تا نوار قلب را آپلود کنید و نتیجه‌ی تحلیل
-                        مدل را همراه با نظر پزشک دریافت کنید.
+                    <h1 className="font-extrabold leading-[2.625rem] text-white text-[1.875rem]">سامانه بررسی نوار قلب</h1>
+                    <p className="font-normal leading-[2rem] text-white text-[0.875rem]">
+                         پس از ایجاد حساب کاربری، می‌توانید نوار قلب خود را بارگذاری و نتیجه بررسی پزشک را به همراه نتیجه مدل مشاهده کنید.
                     </p>  
                 </div>
                 <svg width="606" height="110" viewBox="0 0 606 110" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -67,6 +67,7 @@ const PatientProfile = () => {
             bloodType,
             email,
             city,
+            phone,
         });
 
         setSaved(true);
@@ -80,6 +81,7 @@ const PatientProfile = () => {
         setBloodType(patient.bloodType || "O+");
         setEmail(patient.email || "");
         setCity(patient.city || "");
+        setPhone(currentUser.phone || "");
         setErrors({});
         setSaved(false);
     };
@@ -113,7 +115,6 @@ const PatientProfile = () => {
 
                 <form onSubmit={ handleSubmit } className="grid grid-cols-2 gap-[1rem]">
                     <div className="flex flex-col ">
-                        {/* اضافه شد: علامت ستاره‌ی قرمز کنار لیبل فیلدهای اجباری */}
                         <label htmlFor="fullName" className="flex-1 font-medium leading-[1.25rem] text-[0.875rem]">
                             نام و نام خانوادگی <span className="text-red-500">*</span>
                         </label>

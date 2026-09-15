@@ -10,12 +10,14 @@ const AdminOverview = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const loadUsers = async () => {
+        const list = await getAllUsers();
+        setUsers(list.filter(user => user.role !== "admin"));
+        setLoading(false);
+    };
+
     useEffect(() => {
-        (async () => {
-            const list = await getAllUsers();
-            setUsers(list);
-            setLoading(false);
-        })();
+        loadUsers();
     }, []);
 
     const [tab, setTab] = useState('users');
@@ -67,7 +69,7 @@ const AdminOverview = () => {
     ];
 
     return ( 
-        <div className="flex flex-col gap-[1rem]">
+        <div className="flex flex-2 flex-col gap-[1rem]">
             <AdminHeader />
             <section>
                 <header className="whitespace-nowrap">
@@ -90,7 +92,7 @@ const AdminOverview = () => {
 
             <div className="flex flex-col gap-[1rem] w-full">
                 <div role="tablist" aria-label="بخش‌های مدیریت" className="bg-primary/10 flex justify-end p-[0.25rem] rounded-full w-fit" >
-                    <button role="tab" aria-selected={ tab === 'content' } onClick={() => setTab('content')} className={ tabClass(tab === 'content') }>
+                    {/* <button role="tab" aria-selected={ tab === 'content' } onClick={() => setTab('content')} className={ tabClass(tab === 'content') }>
                         محتوای صفحه اصلی
                     </button>
                     <button role="tab" aria-selected={ tab === 'monitoring' } onClick={() => setTab('monitoring')} className={ tabClass(tab === 'monitoring') }>
@@ -105,7 +107,7 @@ const AdminOverview = () => {
                             </clipPath>
                             </defs>
                         </svg>
-                    </button>
+                    </button> */}
                     <button role="tab" aria-selected={ tab === 'users' } onClick={() => setTab('users')} className={ tabClass(tab === 'users') }>
                         کاربران
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +122,7 @@ const AdminOverview = () => {
                 { tab === 'users' && (
                     <section role="tabpanel" aria-label="جدول کاربران">
                         {loading && <p className="text-text-muted-foreground">در حال بارگذاری...</p>}
-                        {!loading && <UserManagementTable users = { users } />}
+                        {!loading && <UserManagementTable users={ users } onUserChanged={ loadUsers } />}
                     </section>
                 ) }
             </div>

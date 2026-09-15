@@ -12,18 +12,21 @@ import {
 } from '../utils/validation';
 
 const SignUpForm = ({ role, setRole }) => {
+    const [step, setStep] = useState(1);
+
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [medicalCode, setMedicalCode] = useState('');
+    const [code, setCode] = useState('');
 
     const [sending, setSending] = useState(false);
- 
+
     const [fieldErrors, setFieldErrors] = useState({});
     const [generalErrors, setGeneralErrors] = useState('');
 
-    const { signup } = useAuth();
+    const { sendOtp, signupWithEmail } = useAuth();
     const navigate = useNavigate();
 
     const validate = () => {
@@ -50,17 +53,37 @@ const SignUpForm = ({ role, setRole }) => {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
+    const handleSendCode = async (e) => {
         e.preventDefault();
         setGeneralErrors('');
-
 
         if (!validate()) return;
 
         setSending(true);
-        const result = await signup({ role, name, phone, email, password, medicalCode });
+        const result = await sendOtp(email);
         setSending(false);
-        
+
+        if (!result.success) {
+            setGeneralErrors(result.message);
+            return;
+        }
+
+        setStep(2);
+    };
+
+    const handleVerifyAndSignup = async (e) => {
+        e.preventDefault();
+        setGeneralErrors('');
+
+        if (!code.trim()) {
+            setGeneralErrors('لطفاً کد ۶ رقمی ارسال‌شده به ایمیلتان را وارد کنید');
+            return;
+        }
+
+        setSending(true);
+        const result = await signupWithEmail({ role, name, phone, email, code, password, medicalCode });
+        setSending(false);
+
         if (!result.success) {
             setGeneralErrors(result.message);
             return;
@@ -72,10 +95,55 @@ const SignUpForm = ({ role, setRole }) => {
             navigate('/doctor/dashboard')
     };
 
+    const handleResend = async () => {
+        setGeneralErrors('');
+        setSending(true);
+        const result = await sendOtp(email);
+        setSending(false);
+        if (!result.success) setGeneralErrors(result.message);
+    };
+
     const errorBorder = (field) => (fieldErrors[field] ? 'border-red-400' : 'border-text-muted-foreground/25');
 
+    if (step === 2) {
+        return (
+            <form onSubmit={ handleVerifyAndSignup } className="flex flex-col gap-[1rem]">
+                <div className="flex flex-col gap-[0.125rem] items-start pt-[0.15rem]">
+                    <label htmlFor="signupOtpCode">کد ۶ رقمی ارسال‌شده به { email }</label>
+                    <input
+                        id="signupOtpCode"
+                        type="text"
+                        inputMode="numeric"
+                        dir="ltr"
+                        placeholder="123456"
+                        value={ code }
+                        onChange={ (e) => setCode(e.target.value) }
+                        className="border border-text-muted-foreground/25 h-[2.75rem] px-[0.8rem] rounded-[1.15rem] shadow-sm w-full"
+                    />
+                </div>
+
+                {generalErrors && (
+                    <p className="text-red-500 text-[0.875rem]">{ generalErrors }</p>
+                )}
+
+                <button type="submit" disabled={ sending } className="bg-primary px-[2rem] py-[0.625rem] rounded-[1.15rem] text-white disabled:opacity-60">
+                    { sending ? 'در حال ساخت حساب...' : 'تایید و ساخت حساب' }
+                </button>
+
+                <div className="flex justify-between text-[0.8rem]">
+                    <button type="button" onClick={ () => { setStep(1); setCode(''); setGeneralErrors(''); } } className="text-text-muted-foreground underline">
+                        بازگشت و ویرایش اطلاعات
+                    </button>
+                    <button type="button" onClick={ handleResend } disabled={ sending } className="text-primary underline disabled:opacity-60">
+                        ارسال دوباره‌ی کد
+                    </button>
+                </div>
+            </form>
+        );
+    }
+
     return ( 
-        <form onSubmit={ handleSubmit } action="" className="flex flex-col gap-[1rem]">
+        <form onSubmit={ handleSendCode } action="" className="flex flex-col gap-[1rem]">
             <fieldset className="flex flex-col gap-[0.5rem]">
                 <legend className="sr-only">نقش خود را انتخاب کنید</legend>
                 <div className='flex flex-1 gap-[0.75rem]'>
@@ -158,6 +226,7 @@ const SignUpForm = ({ role, setRole }) => {
                     className={`border ${errorBorder('email')} h-[2.75rem] px-[0.8rem] rounded-[1.15rem] shadow-sm w-full`}
                 />
                 {fieldErrors.email && <p className="text-red-500 text-[0.75rem]">{fieldErrors.email}</p>}
+                <p className="text-[0.7rem] text-text-muted-foreground pr-[0.5rem]">یک کد تایید ۶ رقمی به همین ایمیل ارسال می‌شود.</p>
             </div>
 
             { role == "doctor" && 
@@ -216,8 +285,8 @@ const SignUpForm = ({ role, setRole }) => {
                 <p className="text-red-500 text-[0.875rem]">{ generalErrors }</p>
             )}
 
-            <button type="submit" className="bg-primary px-[2rem] py-[0.625rem] rounded-[1.15rem] text-white">
-                {sending ? 'در حال ساخت حساب...': 'ساخت حساب' }
+            <button type="submit" disabled={ sending } className="bg-primary px-[2rem] py-[0.625rem] rounded-[1.15rem] text-white disabled:opacity-60">
+                {sending ? 'در حال ارسال کد...': 'ارسال کد تایید' }
             </button>
         </form>
      );
