@@ -4,6 +4,8 @@ import AdminHeader from "./AdminHeader";
 import UserManagementTable from "./UserManagementTable";
 import { useAuth } from "../context/AuthContext";
 
+import { API_BASE_URL } from "../config";
+
 const AdminOverview = () => {
     const { currentUser, getAllUsers } = useAuth();
 
@@ -42,7 +44,7 @@ const AdminOverview = () => {
     });
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/admin/stats')
+        fetch(`${API_BASE_URL}/admin/stats`)
             .then(res => {
                 if (!res.ok) {
                     throw new Error('خطا در دریافت آمار');

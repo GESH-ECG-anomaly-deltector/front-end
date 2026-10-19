@@ -3,7 +3,7 @@ import PatientHeader from "./PatientHeader";
 import { useAuth } from "../context/AuthContext";
 import { validatePersianName, validateEmail, validateRequired } from "../utils/validation";
 
-const API_BASE_URL = 'http://localhost:8080/api';
+import { API_BASE_URL } from "../config";
 
 const PatientProfile = () => {
     const { currentUser, updateProfile } = useAuth();
